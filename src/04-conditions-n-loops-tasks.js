@@ -27,9 +27,23 @@
  *  21 => 'Fizz'
  *
  */
-function getFizzBuzz(/* num */) {
-  throw new Error('Not implemented');
+function getFizzBuzz(num) {
+  let result = ""
+  // console.log(num % 3)
+  // console.log(num % 5)
+  if (!(num % 3)) {
+    result += "Fizz"
+  }
+  if (!(num % 5)) {
+    result += "Buzz"
+  }
+  if (result) {
+    return result
+  } else {
+    return num
+  }
 }
+// console.log(getFizzBuzz(6))
 
 
 /**
@@ -43,9 +57,14 @@ function getFizzBuzz(/* num */) {
  *   5  => 120
  *   10 => 3628800
  */
-function getFactorial(/* n */) {
-  throw new Error('Not implemented');
+function getFactorial(n) {
+  if (n === 1) {
+    return 1
+  } else {
+    return n * getFactorial(n - 1)
+  }
 }
+// console.log(getFactorial(1))
 
 
 /**
@@ -60,10 +79,14 @@ function getFactorial(/* n */) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+function getSumBetweenNumbers(n1, n2) {
+  let result = 0
+  for (i = n1; i < n2 + 1; i++) {
+    result += i
+  }
+  return result
 }
-
+// console.log(getSumBetweenNumbers(-1,1))
 
 /**
  * Returns true, if a triangle can be built with the specified sides a, b, c
@@ -80,10 +103,19 @@ function getSumBetweenNumbers(/* n1, n2 */) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  let ab = (a + b - c) > 0
+  let ac = (a - b + c) > 0
+  let bc = (-a + b + c) > 0
+  // console.log(ab, ac, bc)
+  // console.log(Boolean(ab), Boolean(ac), Boolean(bc))
+  if (ab && ac && bc) {
+    return true
+  } else {
+    return false
+  }
 }
-
+// console.log(isTriangle(10,10,10))
 
 /**
  * Returns true, if two specified axis-aligned rectangles overlap, otherwise false.
@@ -117,9 +149,25 @@ function isTriangle(/* a, b, c */) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  if (
+      rect1.left >= rect2.left + rect1.width ||
+      rect1.top >= rect2.top + rect2.height ||
+      rect1.left + rect1.width <= rect2.left ||
+      rect1.top +rect1.height <= rect2.top
+      )
+{
+  return false
 }
+else
+{
+  return true
+}
+}
+// console.log(doRectanglesOverlap(
+//     { top: 0, left: 0, width: 10, height: 10 },
+//     { top: 5, left: 5, width: 20, height: 20 }
+//     ))
 
 
 /**
@@ -148,9 +196,14 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  let left = (point.x - circle.center.x) ** 2  + (point.y - circle.center.y) ** 2
+  let right = circle.radius ** 2
+  return ((left <= right) ? true : false)
 }
+// console.log(isInsideCircle(
+//   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }
+// ))
 
 
 /**
@@ -164,9 +217,28 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  let temp = new Map()
+  let result = null
+  for (let i = 0; i < str.length; i++) {
+    // console.log(str[i])
+    let char = str[i]
+    if (temp.has(char)) {
+      temp.set(char, temp.get(char) + 1)
+    } else {
+      temp.set(char, 1)
+    }
+  }
+  for (let [key, value] of temp) {
+    if (value === 1) {
+      result = key
+      break
+    }
+  }
+
+  return result
 }
+// console.log(findFirstSingleChar('abracadabra'))
 
 
 /**
@@ -191,9 +263,15 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  if (a > b) {
+    [a, b] = [b, a]
+  }
+  let start = isStartIncluded ? "[" : "("
+  let end = isEndIncluded ? "]" : ")"
+  return `${start}${a}, ${b}${end}`
 }
+// console.log(getIntervalString(5, 3, true, true))
 
 
 /**
@@ -208,9 +286,16 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  let result = ""
+  console.log(str)
+  for (let i = str.length; i > 0; i--) {
+    // console.log(i, str[i-1])
+    result += str[i-1]
+  }
+  return result
 }
+// console.log(reverseString('The quick brown fox jumps over the lazy dog'))
 
 
 /**
@@ -225,9 +310,22 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  let result = 0
+  // let i = 1000
+  while (num) {
+  //   i -= 1
+  //   if (!i) {
+  //     break
+  //   }
+    // console.log(result * 10, num % 10)
+    result = num % 10 + result * 10
+    num = Math.floor(num / 10)
+    // console.log(num)
+  }
+  return result
 }
+// console.log(reverseInteger(1234567890123))
 
 
 /**
@@ -250,9 +348,33 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  let result = 0
+  let flag = false
+  let i = 1000
+  while (ccn) {
+    let temp = 0
+    i -= 1
+    if (!i) {
+      break
+    }
+    temp = ccn % 10
+    ccn = Math.floor(ccn / 10)
+    // console.log(temp, " =>")
+    if (flag) {
+      temp *= 2
+      if (temp > 9) {
+        temp = Math.floor(temp / 10 + temp % 10)
+      }
+    }
+    // console.log(temp)
+    result += temp
+    flag = !flag
+  }
+  return (result % 10) ? false : true
 }
+// console.log(isCreditCardNumber(378282246310005))
+
 
 /**
  * Returns the digital root of integer:
